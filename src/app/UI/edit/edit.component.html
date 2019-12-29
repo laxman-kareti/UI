@@ -1,1 +1,55 @@
-<p>edit works!</p>
+<div class="col-md-6 task-container">
+
+  <form [formGroup]="editForm" (ngSubmit)="onSubmit()">
+
+    <div class="hidden">
+      <input type="text" formControlName="TaskId" placeholder="TaskId" name="TaskId" class="form-control" id="TaskId">
+    </div>
+
+    <div class="form-group">
+      <label for="taskName">Task:</label>
+      <input type="text" formControlName="TaskName" placeholder="taskName" name="taskName" class="form-control" id="taskName" readonly="true">
+    </div>
+
+    <div class="form-group">
+      <label>Priority</label>
+      <input type="number" style="margin-left: 20px;display: none" [(ngModel)]="value" formControlName="Priority">
+      <ng5-slider [(value)]="value" [options]="options"></ng5-slider>
+      <div id="slider">
+        <div id="custom-handle" class="ui-slider-handle"></div>
+      </div>
+
+    </div>
+
+    <div class="form-group">
+      <label for="ParentTask">Parent Task:</label>
+      <select name="ParentTask" class="form-control" id="ParentTask" formControlName="ParentId">
+        <option *ngFor="let task of tasks" [value]="task.ParentId">
+          {{task.ParentTask}}
+        </option>
+      </select>
+
+    </div>
+
+    <div class="form-group">
+      <label for="StartDate">Start Date:</label>
+      <input type="date" formControlName="StartDate" placeholder="Start Date" name="StartDate" 
+      class="form-control" id="StartDate" [ngClass]="{ 'is-invalid': submitted && f.StartDate.errors }">
+      <div *ngIf="submitted && f.StartDate.errors" class="invalid-feedback">
+        <div *ngIf="f.StartDate.errors.required">Start Date is required</div>
+    </div>
+    </div>
+
+
+    <div class="form-group">
+      <label for="EndDate">End Date:</label>
+      <input type="text" formControlName="EndDate" placeholder="End Date" name="EndDate" class="form-control" id="EndDate">
+
+    </div>
+
+    <button type="submit" class="btn btn-primary">Update</button>
+    <button type="button" class="btn btn-primary" (click)="onCancel() " style="margin-left: 20px;">Cancel</button>
+
+  </form>
+
+</div>

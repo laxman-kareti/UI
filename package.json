@@ -7,8 +7,10 @@
     "build": "ng build",
     "test": "ng test",
     "lint": "ng lint",
-    "e2e": "ng e2e"
+    "e2e": "ng e2e",
+    "run:dev": "ng b --prod --base-href /TaskManagerUI"
   },
+  
   "private": true,
   "dependencies": {
     "@angular/animations": "~8.2.14",
@@ -23,6 +25,7 @@
     "bootstrap": "^4.4.1",
     "jquery": "^3.4.1",
     "ng5-slider": "^1.2.4",
+    "ngx-bootstrap": "^5.2.0",
     "rxjs": "~6.4.0",
     "tslib": "^1.10.0",
     "zone.js": "~0.9.1"

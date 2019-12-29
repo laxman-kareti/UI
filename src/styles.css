@@ -1,3 +1,10 @@
 /* You can add global styles to this file, and also import other style files */
 
-
+#custom-handle {
+    width: 3em;
+    height: 1.6em;
+    top: 50%;
+    margin-top: -.8em;
+    text-align: center;
+    line-height: 1.6em;
+}

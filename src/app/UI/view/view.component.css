@@ -1,0 +1,16 @@
+.task-container {
+
+    display: flex;
+  
+    flex-direction: column;
+  
+    margin: auto;
+  
+  }
+
+  .hidden {
+
+    display: none;
+  }
+
+

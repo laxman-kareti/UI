@@ -5,10 +5,27 @@ import { ViewComponent } from './UI/view/view.component';
 import { EditComponent } from './UI/edit/edit.component';
 
 
+
+
 const appRoutes: Routes = [
-  { path: 'list', component: ViewComponent },
-  { path: 'create', component: AddComponent },
-  { path: '', redirectTo: '/list', pathMatch: 'full' }
+  { path: 'view-task', 
+  component: ViewComponent, 
+ },
+ {
+  path: 'edit-task',
+  component: EditComponent,
+  
+},
+{
+  path: 'Add-task',
+  component: AddComponent,
+  
+},
+
+
+  { 
+    path: '', redirectTo: 'view-task', pathMatch: 'full'
+ }
 ];
 
 @NgModule({

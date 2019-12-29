@@ -1,44 +1,59 @@
-<form #TaskForm="ngForm" (ngSubmit)="saveTask(TaskForm)">
-    <div class="panel panel-primary">
-      <div class="panel-heading">
-        <h3 class="panel-title">Add Task</h3>
-      </div>
-      <div class="panel-body">
-  
-        <div class="form-group">
-          <label for="taskName">Task Name</label>
-          <input id="taskName" type="text" class="form-control" 
-                 name="TaskName" [(ngModel)]="TaskName">
-        </div>
-  
-        <div class="form-group">
-          <label for="ParentTask">Parent Task</label>
-          <input id="ParentTask" type="text" class="form-control" 
-                 name="ParentTask" [(ngModel)]="ParentTask">
-        </div> 
+<div class="col-md-6 task-container">
 
+  <form [formGroup]="addForm" (ngSubmit)="onSubmit()">
 
-        <div class="form-group">
-            <label for="Priority">Priority</label>
-            <div id="Slider"></div>
-           
-          </div> 
+    <div class="form-group">
 
-          <div class="form-group">
-            <label for="StartDate">Start Date</label>
-            <input id="StartDate" type="text" class="form-control" 
-                   name="StartDate" [(ngModel)]="StartDate">
-          </div> 
-
-          <div class="form-group">
-            <label for="EndDate">End Date</label>
-            <input id="EndDate" type="text" class="form-control" 
-                   name="EndDate" [(ngModel)]="EndDate">
-          </div> 
-  
-      </div>
-      <div class="panel-footer">
-        <button class="btn btn-primary" type="submit">Save</button>
-      </div>
+      <label for="taskName">Task Name:</label>
+      <input type="text" formControlName="taskName" placeholder="taskName" name="taskName" class="form-control" id="taskName"
+      [ngClass]="{ 'is-invalid': submitted && f.taskName.errors }">
+      <div *ngIf="submitted && f.taskName.errors" class="invalid-feedback">
+        <div *ngIf="f.taskName.errors.required">Task Name is required</div>
     </div>
+    </div>
+
+    <div class="form-group">
+      <label for="ParentTask">Parent Task:</label>
+      <select name="ParentTask" class="form-control" id="ParentTask" formControlName="ParentId">
+        <option *ngFor="let task of tasks" [value]="task.ParentId">
+          {{task.ParentTask}}
+        </option>
+      </select>
+
+    </div>
+
+
+    <div class="form-group">
+      <label>Priority</label>
+      <input type="number"  style="margin-left: 20px;display: none" [(ngModel)]="value" formControlName="Priority">
+      <ng5-slider [(value)]="value" [options]="options"></ng5-slider>
+
+      <div id="slider">
+        <div id="custom-handle" class="ui-slider-handle"></div>
+      </div>
+
+    </div>
+
+
+
+    <div class="form-group">
+      <label for="StartDate">Start Date:</label>
+      <input type="date" formControlName="StartDate" placeholder="Start Date" name="StartDate"
+       class="form-control" id="StartDate"  [ngClass]="{ 'is-invalid': submitted && f.StartDate.errors }">
+       <div *ngIf="submitted && f.StartDate.errors" class="invalid-feedback">
+        <div *ngIf="f.StartDate.errors.required">Start Date is required</div>
+    </div>
+    </div>
+
+
+    <div class="form-group">
+      <label for="EndDate">End Date:</label>
+      <input type="date" formControlName="EndDate" placeholder="End Date" name="EndDate" class="form-control" id="EndDate">
+    </div>
+
+    <button class="btn btn-primary" type="submit">Add Task</button>
+    <button class="btn btn-primary" type="button" (click)="onReset()" style="margin-left: 20px;">Reset</button>
+
   </form>
+
+</div>
