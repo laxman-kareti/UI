@@ -6,10 +6,30 @@
       <input type="text" formControlName="TaskId" placeholder="TaskId" name="TaskId" class="form-control" id="TaskId">
     </div>
 
+    <div class="hidden">
+        <input type="text" formControlName="Status" placeholder="TaskId" name="Status" class="form-control" id="Status">
+      </div>
+  
+
+    
+    <div class="form group">
+        <label for="ProjectName">Project:</label>
+           <select name="ProjectName"  class="form-control" id="ProjectName" formControlName="ProjectId" >
+                <option *ngFor="let proj of projects" [value]="proj.ProjectId">
+                  {{proj.ProjectName}}
+                </option>
+              </select>
+    </div>
+
     <div class="form-group">
       <label for="taskName">Task:</label>
       <input type="text" formControlName="TaskName" placeholder="taskName" name="taskName" class="form-control" id="taskName" readonly="true">
     </div>
+
+    <div class="col-md-4">
+        <input type="checkbox" (change)="SetParentTask($event)" name="projectdaterange"  > 
+        Parent Task  
+      </div>
 
     <div class="form-group">
       <label>Priority</label>
@@ -46,6 +66,16 @@
       <input type="text" formControlName="EndDate" placeholder="End Date" name="EndDate" class="form-control" id="EndDate">
 
     </div>
+
+    <div class="form-group">
+        <label for="TaskOwner">User:</label>
+        <select name="TaskOwner" class="form-control" id="TaskOwner" formControlName="UserId">
+          <option *ngFor="let user of users" [value]="user.UserId">
+            {{user.FirstName + ' ' + user.LastName }}
+          </option> 
+        </select>
+  
+      </div>
 
     <button type="submit" class="btn btn-primary">Update</button>
     <button type="button" class="btn btn-primary" (click)="onCancel() " style="margin-left: 20px;">Cancel</button>

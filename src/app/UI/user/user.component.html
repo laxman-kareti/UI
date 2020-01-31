@@ -1,0 +1,121 @@
+<div class="col-md-6 task-container">
+
+    <form [formGroup]="adduserForm" (ngSubmit)="onSubmit()">
+  
+      <div class="form-group">
+
+        
+                 <div class="hidden">
+            <input type="text" formControlName="UserId" placeholder="UserId" name="UserId" class="form-control" id="UserId">
+          </div>
+  
+        <label for="FirstName">First Name:</label>
+        <input type="text" formControlName="FirstName" placeholder="FirstName" name="FirstName" class="form-control" id="FirstName"
+        [ngClass]="{ 'is-invalid': submitted && f.FirstName.errors }">
+        <div *ngIf="submitted && f.FirstName.errors" class="invalid-feedback">
+          <div *ngIf="f.FirstName.errors.required">First Name is required</div>
+      </div>
+      </div>
+
+      <div class="form-group">
+  
+        <label for="LastName">Last Name:</label>
+        <input type="text" formControlName="LastName" placeholder="LastName" name="LastName" class="form-control" id="LastName"
+        [ngClass]="{ 'is-invalid': submitted && f.LastName.errors }">
+        <div *ngIf="submitted && f.LastName.errors" class="invalid-feedback">
+          <div *ngIf="f.LastName.errors.required">Last Name is required</div>
+      </div>
+      </div>
+
+      <div class="form-group">
+  
+        <label for="EmployeeId">Employee ID:</label>
+        <input type="number" formControlName="EmployeeId" placeholder="EmployeeId" name="LastName" class="form-control" id="EmployeeId"
+        [ngClass]="{ 'is-invalid': submitted && f.EmployeeId.errors }">
+        <div *ngIf="submitted && f.EmployeeId.errors" class="invalid-feedback">
+          <div *ngIf="f.EmployeeId.errors.required">Last Name is required</div>
+      </div>
+      </div>
+  
+      <button class="btn btn-primary" id="btnAddorUpdate" type="submit"><span> {{ editclicked ? 'Update': 'Add'}} </span></button>
+      <button class="btn btn-primary" type="button" (click)="onReset()" style="margin-left: 20px;">Reset</button>
+  
+    </form>
+  
+  </div>
+<br>
+<div class="row">
+<div class="col-md-4" style="margin-left:20px;" >
+    
+    <input type="text" class="form-control" [(ngModel)]="SearchValue" placeholder="Search.." />
+</div>
+  <div class="col-md-7" >
+         Sort By:   <button class="btn btn-primary" type="button" (click)="SortType('FirstName')" >First Name</button>
+     <button class="btn btn-primary" type="button"  (click)="SortType('LastName')" style="margin-left: 20px;">Last Name</button>
+     <button class="btn btn-primary" type="button" (click)="SortType('EmployeeId')" style="margin-left: 20px;">Employee Id</button>
+
+
+
+  </div>
+</div>  
+  <br>
+            
+                <div class="list-group list-group-horizontal" *ngFor="let user of users  | Userfilter: SearchValue">
+                        <div class="col-md-8">
+                      <div class="list-group list-group-flush">
+                            <div class="hidden" >{{user.userId}} </div>
+                    <div class="list-group-item" style="border:1px solid grey;" >{{user.FirstName}} </div>
+                   <div class="list-group-item" style="border:1px solid grey;" >{{user.LastName}} </div>
+                   <div class="list-group-item" style="border:1px solid grey;"  >{{user.EmployeeId}} </div>
+                   <div>  <hr style="border:1px dotted grey">
+                   </div>
+                </div>
+            </div>
+           
+                    
+            <div class="col-md-4">
+                <div class="list-group list-group-flush">
+                 <div class="list-group-item" style="border:none" (click)="EditUser(user)" >  
+                    <button class="btn btn-primary" >
+                   Edit</button> </div>
+                   
+                 
+                  <div class="list-group-item" style="border:none"> <button class="btn btn-primary " (click)="deleteUser(user)"  > Delete</button>
+                  </div>
+                </div>
+                </div>
+              
+             
+                   
+            </div>
+
+            
+      
+
+  
+
+    <!-- <table class="table table-striped">
+        <thead>
+            <tr>
+                <th class="hidden">Id</th>
+                <th>First Name</th>
+                <th>Last Name</th>
+                <th>EmployeeId</th>
+                <th></th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr *ngFor="let user of users">
+                <td class="hidden">{{user.UserId}}</td>
+                <td>{{user.FirstName}}</td>
+                <td>{{user.LastName }}</td>
+                <td>{{user.EmployeeId}}</td>
+                <td><button class="btn btn-primary ">
+                    Edit</button>
+                    <button class="btn btn-primary "  style="margin-left: 20px; "> Delete</button>
+                    
+                </td>
+            </tr>
+        </tbody>
+    </table> -->
+

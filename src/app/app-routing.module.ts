@@ -3,6 +3,8 @@ import { Routes, RouterModule } from '@angular/router';
 import { AddComponent } from './UI/add/add.component';
 import { ViewComponent } from './UI/view/view.component';
 import { EditComponent } from './UI/edit/edit.component';
+import { UserComponent } from './UI/user/user.component';
+import { ProjectComponent } from './UI/project/project.component';
 
 
 
@@ -21,6 +23,18 @@ const appRoutes: Routes = [
   component: AddComponent,
   
 },
+{
+  path: 'Add-User',
+  component: UserComponent,
+  
+},
+
+{
+  path: 'Add-Project',
+  component: ProjectComponent,
+  
+},
+
 
 
   { 

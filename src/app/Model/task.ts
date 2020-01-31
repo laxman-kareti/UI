@@ -6,5 +6,6 @@ export class Task {
     Priority:number;
     StartDate:Date;
     EndDate: Date;
-
+    Status:string;
+    UserId:number;
 }

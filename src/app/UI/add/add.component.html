@@ -2,6 +2,21 @@
 
   <form [formGroup]="addForm" (ngSubmit)="onSubmit()">
 
+      <div class="form group">
+          <label for="ProjectName">Project:</label>
+             <select name="ProjectName"  class="form-control" id="ProjectName" formControlName="ProjectId"
+             [ngClass]="{ 'is-invalid': submitted && f.ProjectId.errors }" >
+                  <option *ngFor="let proj of projects" [value]="proj.ProjectId">
+                    {{proj.ProjectName}}
+                  </option>
+                </select>
+                <div *ngIf="submitted && f.ProjectId.errors" class="invalid-feedback">
+                  <div *ngIf="f.ProjectId.errors.required">Project Name is required</div>
+              </div>
+      </div>
+       
+      
+
     <div class="form-group">
 
       <label for="taskName">Task Name:</label>
@@ -12,15 +27,12 @@
     </div>
     </div>
 
-    <div class="form-group">
-      <label for="ParentTask">Parent Task:</label>
-      <select name="ParentTask" class="form-control" id="ParentTask" formControlName="ParentId">
-        <option *ngFor="let task of tasks" [value]="task.ParentId">
-          {{task.ParentTask}}
-        </option>
-      </select>
-
-    </div>
+  
+   
+    <div class="col-md-4" style="margin-left: -10px;" >
+        <input type="checkbox" (change)="SetParentTask($event)" name="ParentTask"  > 
+        Parent Task  
+      </div>
 
 
     <div class="form-group">
@@ -34,22 +46,50 @@
 
     </div>
 
+    <div class="form-group">
+        <label for="ParentTask">Parent Task:</label>
+        <select name="ParentTask" class="form-control" id="ParentTask" formControlName="ParentId">
+          <option *ngFor="let task of tasks" [value]="task.ParentId">
+            {{task.ParentTask}}
+          </option>
+        </select>
+  
+      </div>
+
 
 
     <div class="form-group">
       <label for="StartDate">Start Date:</label>
       <input type="date" formControlName="StartDate" placeholder="Start Date" name="StartDate"
-       class="form-control" id="StartDate"  [ngClass]="{ 'is-invalid': submitted && f.StartDate.errors }">
+       class="form-control" id="StartDate" [(ngModel)]="today"  [ngClass]="{ 'is-invalid': submitted && f.StartDate.errors }">
        <div *ngIf="submitted && f.StartDate.errors" class="invalid-feedback">
         <div *ngIf="f.StartDate.errors.required">Start Date is required</div>
-    </div>
+       </div>
+       <div *ngIf="submitted && f.StartDate.errors" class="invalid-feedback">
+       <div *ngIf="f.StartDate.errors?.DateError" >End Date is greater than Start Date</div>
+      </div>
     </div>
 
 
     <div class="form-group">
       <label for="EndDate">End Date:</label>
-      <input type="date" formControlName="EndDate" placeholder="End Date" name="EndDate" class="form-control" id="EndDate">
+      <input type="date" formControlName="EndDate" [(ngModel)]="tomorrow" placeholder="End Date" name="EndDate" class="form-control" id="EndDate">
     </div>
+
+    <div class="form-group">
+        <label for="TaskOwner">User:</label>
+        <select name="TaskOwner" class="form-control" id="TaskOwner" formControlName="UserId"
+        [ngClass]="{ 'is-invalid': submitted && f.UserId.errors }">
+          <option *ngFor="let user of users" [value]="user.UserId">
+            {{user.FirstName + ' ' + user.LastName }}
+          </option> 
+        </select>
+        <div *ngIf="submitted && f.UserId.errors" class="invalid-feedback">
+          <div *ngIf="f.UserId.errors.required">User Name is required</div>
+      </div>
+
+  
+      </div>
 
     <button class="btn btn-primary" type="submit">Add Task</button>
     <button class="btn btn-primary" type="button" (click)="onReset()" style="margin-left: 20px;">Reset</button>

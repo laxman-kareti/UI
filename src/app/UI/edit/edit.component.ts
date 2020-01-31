@@ -5,6 +5,8 @@ import { SharedService } from '../../Service/shared.service';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { first } from 'rxjs/operators';
 import { Options } from 'ng5-slider';
+import { User } from '../../Model/User';
+import { Project } from '../../Model/Project';
 
 
 @Component({
@@ -16,6 +18,8 @@ export class EditComponent implements OnInit {
 submitted = false;
   editForm: FormGroup;
   tasks: Task[];
+  users: User[];
+  projects: Project[];
   value: number = 15;
   options: Options = {
     floor: 0,
@@ -32,6 +36,16 @@ submitted = false;
       .subscribe(data => {
         this.tasks = data;
       });
+
+      this._taskService.getUsers()
+      .subscribe(userdata => {
+        this.users = userdata;
+      });
+
+      this._taskService.getProjects()
+      .subscribe(projdata => {
+        this.projects = projdata;
+      });
   }
 
   ngOnInit() {
@@ -43,12 +57,18 @@ submitted = false;
       Priority: [''],
       StartDate: ['', Validators.required],
       EndDate: [''],
+      UserId : [''],
+      ProjectId: [''],
+      Status: ['']
     });
+
+    
 
     let taskId = window.localStorage.getItem("editTaskId");
     this._taskService.getTaskById(+taskId)
       .subscribe(data => {
         this.editForm.setValue(data);
+  
       });
 
     if (!taskId) {

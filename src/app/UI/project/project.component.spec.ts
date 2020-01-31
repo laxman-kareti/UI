@@ -4,52 +4,47 @@ import { Observable } from 'rxjs/Observable';
 import 'rxjs/add/observable/from';
 import 'rxjs/add/observable/empty';
 import 'rxjs/add/observable/throw';
-import { Task } from 'src/app/Model/task';
-import { ViewComponent } from './view.component';
+import { User } from 'src/app/Model/User';
 import { ReactiveFormsModule, FormsModule } from '@angular/forms';
 import { FilterPipe } from '../../pipe/filter.pipe';
 import { RouterTestingModule } from '@angular/router/testing';
+import { Ng5SliderModule } from 'ng5-slider';
 import { of } from 'rxjs';
+import { ProjectComponent } from './project.component';
 
+describe('ProjectComponent', () => {
+  let component: ProjectComponent;
+  let fixture: ComponentFixture<ProjectComponent>;
 
-describe('ViewComponent', () => {
-  let component: ViewComponent;
-  let fixture: ComponentFixture<ViewComponent>;
-  // let service: SharedService;
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      
-      imports: [ReactiveFormsModule,FormsModule,RouterTestingModule],
-      declarations: [ ViewComponent,FilterPipe ],
+      imports: [ReactiveFormsModule,FormsModule,RouterTestingModule,Ng5SliderModule],
+      declarations: [ ProjectComponent,FilterPipe ],
       providers: [{
       provide:SharedService,useClass:SharedServiceStub}
-      ]
+      ],
     })
     .compileComponents();
   }));
 
   beforeEach(() => {
-    fixture = TestBed.createComponent(ViewComponent);
+    fixture = TestBed.createComponent(ProjectComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
-  
   });
-
 
   it('should create', () => {
     expect(component).toBeTruthy();
   });
 });
 
-
 class SharedServiceStub {
   a:any[]
-  b:any[]
-  getTasks():Observable<any> {
+  getProjects():Observable<any> {
    return of(this.a)
   }
 
-  getProjects():Observable<any> {
-    return of(this.b)
+  getUsers():Observable<any> {
+    return of(this.a)
    }
 }

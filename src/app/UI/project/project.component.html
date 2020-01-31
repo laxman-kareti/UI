@@ -1,0 +1,143 @@
+<div class="col-md-9 task-container">
+
+    <form [formGroup]="addprojectForm" (ngSubmit)="onSubmit()">
+  
+      <div class="form-group">
+            <div class="hidden">
+                    <input type="text" formControlName="ProjectId" placeholder="ProjectId" name="ProjectId" class="form-control" id="ProjectId">
+                  </div>    
+  
+        <label for="FirstName">Project Name:</label>
+        <input type="text" formControlName="ProjectName" placeholder="ProjectName" name="ProjectName" class="form-control" id="ProjectName"
+        [ngClass]="{ 'is-invalid': submitted && f.ProjectName.errors }">
+        <div *ngIf="submitted && f.ProjectName.errors" class="invalid-feedback">
+          <div *ngIf="f.ProjectName.errors.required">Project Name is required</div>
+      </div>
+      </div>
+
+      <div class="row">
+  <div class="col-md-4">
+    <input type="checkbox" (change)="SetDateRange($event)" name="projectdaterange"  > Set Start & End Date  
+  </div>
+      
+  <div class="col-md-4">
+    <input type="date" formControlName="StartDate"  placeholder="Start Date" name="StartDate"
+    class="form-control" id="StartDate" [(ngModel)]="today"  >
+  </div>
+
+  <div class="col-md-4">
+    
+    <input type="date" formControlName="EndDate" placeholder="End Date" name="EndDate"
+    class="form-control" id="EndDate"  [(ngModel)]="tomorrow"  >
+  </div>
+      </div>
+
+      <div class="form-group">
+        <label>Priority</label>
+        <input type="number"  style="margin-left: 20px;display: none" [(ngModel)]="value" formControlName="Priority">
+        <ng5-slider [(value)]="value" [options]="options"></ng5-slider>
+  
+        <div id="slider">
+          <div id="custom-handle" class="ui-slider-handle"></div>
+        </div>
+     </div>
+
+     
+      <div class="form-group">
+            <label for="ManagerName">Manager:</label>
+            <select name="ManagerName" class="form-control" id="UserId" formControlName="UserId"
+            [ngClass]="{ 'is-invalid': submitted && f.UserId.errors }">
+              <option *ngFor="let user of users" [value]="user.UserId">
+                {{user.FirstName + ' ' + user.LastName }}
+              </option> 
+            </select>
+            <div *ngIf="submitted && f.UserId.errors" class="invalid-feedback">
+              <div *ngIf="f.UserId.errors.required">Manager Name is required</div>
+          </div>
+          </div>
+
+          <div class="hidden">
+                <input type="text" formControlName="CompletedTasks" placeholder="ProjectId" name="ProjectId" class="form-control" id="ProjectId">
+              </div>   
+
+              <div class="hidden">
+                    <input type="text" formControlName="TotalTasks" placeholder="ProjectId" name="ProjectId" class="form-control" id="ProjectId">
+                  </div>   
+
+     
+  
+      <button class="btn btn-primary" type="submit"><span> {{ editclicked ? 'Update': 'Add'}} </span></button>
+      <button class="btn btn-primary" type="button" (click)="onReset()" style="margin-left: 20px;">Reset</button>
+  
+    </form>
+  
+  </div>
+  <br>
+
+  <hr style="border:1px solid grey">
+<div class="row">
+    <div class="col-md-4" style="margin-left:20px;" >
+       
+        <input type="text" class="form-control" [(ngModel)]="SearchValue" placeholder="Search.." />
+    </div>
+
+    <div class="col-md-7"> 
+        Sort By:   <button class="btn btn-primary" type="button" (click)="SortType('StartDate')" >Start Date</button>
+        <button class="btn btn-primary" type="button"  (click)="SortType('EndDate')" style="margin-left: 20px;">End Date</button>
+        <button class="btn btn-primary" type="button" (click)="SortType('Priority')" style="margin-left: 20px;">Priority</button>
+        <button class="btn btn-primary" type="button" (click)="SortType('Completed')" style="margin-left: 20px;">Completed</button>   
+   
+     </div>
+   
+
+</div>
+<br>
+
+
+  <div class="col-md-12">
+
+        <div class="list-group list-group-horizontal" *ngFor="let proj of projects  | filter : SearchValue">
+                <div class="col-md-6">
+              <div class="list-group list-group-flush">
+                    <div class="hidden" >{{proj.ProjectId}} </div>
+            <div class="list-group-item" style="border:1px solid grey" ><span>Project Name: </span>{{proj.ProjectName}} 
+                <div> <span >No of Tasks: </span>  {{proj.TotalTasks}} 
+                    <span style="margin-left:80px">Completed Tasks: </span> {{proj.CompletedTasks}}
+                </div>
+           
+                <div style="margin-top: 20px"><span> Start Date: </span>   {{proj.StartDate}} 
+                <span style="margin-left:40px">End Date: </span> {{proj.EndDate}}
+                </div>
+        </div>
+           <div>  <hr style="border:1px dotted grey">
+           </div>
+        </div>
+    </div>
+
+    <div class="col-md-2">
+            <div class="list-group-item">
+                <span>Priority:  </span>{{proj.Priority}} </div>
+    </div>
+   
+            
+    <div class="col-md-4">
+        <div class="list-group list-group-flush">
+         <div class="list-group-item" style="border:none" >  
+            <button class="btn btn-primary custom"   (click)="EditProject(proj)"   >
+           Edit</button> 
+           <div style="border:none">  
+                <button class="btn btn-primary custom"   style="margin-top:5px" (click)="EndProject(proj)"  >
+               Suspend</button> </div>
+           
+         
+          <div  style="border:none"> <button class="btn btn-primary custom" (click)="deleteProject(proj)" style="margin-top:5px" > Delete</button>
+          </div>
+          </div>
+        </div>
+        </div>
+      
+        
+        
+    </div>
+  
+</div>

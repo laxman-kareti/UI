@@ -48,6 +48,17 @@ class SharedServiceStub {
    
     return of(this.a);
    }
+
+   getUsers():Observable<any> {
+   
+    return of(this.a);
+   }
+
+   
+   getProjects():Observable<any> {
+   
+    return of(this.a);
+   }
   
 
 }
