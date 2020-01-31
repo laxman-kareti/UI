@@ -21,6 +21,7 @@ submitted = false;
   users: User[];
   projects: Project[];
   value: number = 15;
+  parenttaskChecked:boolean;
   options: Options = {
     floor: 0,
     ceil: 30
@@ -102,6 +103,40 @@ if (this.editForm.invalid) {
         error => {
           alert(error);
         });
+  }
+
+  
+  SetParentTask(e)
+  {
+    this.parenttaskChecked = e.target.checked;
+    let parenttaskcontrol =  this.editForm.get('ParentId');
+    let prioritycontrol =  this.editForm.get('Priority');
+    let usercontrol =  this.editForm.get('UserId');
+    let StartDatecontrol = this.editForm.get('StartDate');
+    let EndDatecontrol = this.editForm.get('EndDate');
+    this.options = Object.assign({}, this.options, {disabled: true});
+    if(this.parenttaskChecked)
+    {
+      parenttaskcontrol.disable();
+      prioritycontrol.disable();
+      usercontrol.disable();
+       StartDatecontrol.disable() ;
+       EndDatecontrol.disable();
+       this.options = Object.assign({}, this.options, {disabled: true});
+ 
+    }  
+     else {
+     
+
+       parenttaskcontrol.enable();
+       prioritycontrol.enable();
+       usercontrol.enable();
+      StartDatecontrol.enable();
+      EndDatecontrol.enable();
+      this.options = Object.assign({}, this.options, {disabled: false});
+      }
+     
+
   }
 
 }
